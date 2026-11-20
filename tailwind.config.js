@@ -93,7 +93,24 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        display: ['Oswald', 'Impact', 'Arial Narrow', 'sans-serif'],
+      },
       colors: {
+        // Thème du site public : bleu nuit + rouge.
+        navy: {
+          DEFAULT: '#1e2433',
+          950: '#12161f',
+          900: '#171c28',
+          800: '#1e2433',
+          700: '#283043',
+          600: '#364059',
+        },
+        brand: {
+          DEFAULT: '#d92b25',
+          dark: '#b8211c',
+          light: '#fcebea',
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

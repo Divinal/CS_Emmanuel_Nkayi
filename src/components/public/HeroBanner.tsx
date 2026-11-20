@@ -1,68 +1,30 @@
 import React from 'react';
-import { CYCLE_INFOS } from '../../content/cycles';
-import { siteConfig } from '../../config/site.config';
-import StudentPhotoCard from './StudentPhotoCard';
-import { BannerBackground, Confetti, Navigate, PublicLink, TitleRule } from './PublicBlocks';
+import { Phone } from 'lucide-react';
+import { siteConfig, phoneHref } from '../../config/site.config';
+import { BTN_OUTLINE, BTN_RED, BannerBackground, Navigate, PublicLink } from './PublicBlocks';
 
-// Décalage vertical de chaque carte : effet « éventail » de la bannière.
-const CARD_OFFSETS = [34, -10, 50, -22, 22];
-
+// Bannière d'accueil : grand titre centré, mots-clés en rouge, deux boutons.
 const HeroBanner: React.FC<{ onNavigate: Navigate }> = ({ onNavigate }) => (
   <section className="relative overflow-hidden text-white">
     <BannerBackground />
-    <Confetti />
 
-    <div className="container relative mx-auto grid items-center gap-6 px-4 py-12 lg:grid-cols-12 lg:gap-4 lg:px-8 lg:py-16">
-      <div className="relative z-10 lg:col-span-5">
-        <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-sky-200 sm:text-sm">
-          République du Congo · Nkayi, Bouenza
-        </p>
-        <h2 className="text-3xl font-black uppercase leading-[1.1] tracking-tight sm:text-4xl xl:text-5xl">
-          Bienvenue au {siteConfig.schoolName}
-        </h2>
-        <TitleRule />
-        <p className="max-w-xl text-base leading-relaxed text-blue-50 sm:text-lg">
-          De la garderie au lycée, nous accompagnons chaque enfant vers la réussite scolaire et humaine,
-          dans un cadre discipliné et bienveillant. Programmes officiels du Congo, préparation
-          au CEPE, au BEPC et au Baccalauréat.
-        </p>
-        <p className="mt-5 inline-block rounded-full bg-white/10 px-4 py-1.5 text-sm font-semibold ring-1 ring-white/25">
-          Notre devise : {siteConfig.reportCard.schoolMotto}
-        </p>
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <PublicLink
-            to="admissions"
-            onNavigate={onNavigate}
-            className="rounded-lg bg-white px-7 py-3 text-center font-bold text-blue-800 shadow-lg transition hover:bg-blue-50"
-          >
-            Inscrire mon enfant
-          </PublicLink>
-          <PublicLink
-            to="education"
-            onNavigate={onNavigate}
-            className="rounded-lg px-7 py-3 text-center font-semibold text-white ring-2 ring-white/70 transition hover:bg-white/10"
-          >
-            Découvrir nos cycles
-          </PublicLink>
-        </div>
-      </div>
+    <div className="container relative mx-auto flex min-h-[70vh] flex-col items-center justify-center px-4 py-20 text-center lg:px-8">
+      <p className="font-display text-sm uppercase tracking-[0.3em] text-gray-300">Nkayi · Bouenza · Congo</p>
+      <h2 className="mt-5 max-w-4xl font-display text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">
+        Une école <span className="text-brand">de la garderie</span> au <span className="text-brand">lycée</span>
+      </h2>
+      <p className="mt-6 font-display text-base uppercase tracking-[0.2em] text-gray-200 sm:text-lg">
+        {siteConfig.reportCard.schoolMotto}
+      </p>
 
-      {/* Cartes photo des élèves, une par cycle. Défilables sur petit écran. */}
-      <div className="-mx-4 overflow-x-auto overflow-y-hidden px-4 lg:col-span-7 lg:mx-0 lg:overflow-visible lg:px-0">
-        <ul className="flex w-max items-center gap-3 py-16 lg:mx-auto lg:w-auto lg:justify-center lg:py-12 xl:gap-4">
-          {CYCLE_INFOS.map((cycle, index) => (
-            <li
-              key={cycle.id}
-              className="shrink-0"
-              style={{ transform: `rotate(7deg) translateY(${CARD_OFFSETS[index % CARD_OFFSETS.length]}px)` }}
-            >
-              <StudentPhotoCard
-                cycle={cycle}
-                className="h-[220px] w-[118px] sm:h-[260px] sm:w-[130px] lg:h-[300px] lg:w-[100px] xl:h-[350px] xl:w-[126px]"
-              />
-            </li>
-          ))}
-        </ul>
+      <div className="mt-10 flex w-full flex-col gap-4 sm:w-auto sm:flex-row">
+        <a href={phoneHref(siteConfig.contact.phone)} className={BTN_OUTLINE}>
+          <Phone className="h-4 w-4" />
+          {siteConfig.contact.phone}
+        </a>
+        <PublicLink to="admissions" onNavigate={onNavigate} className={BTN_RED}>
+          Inscrire mon enfant
+        </PublicLink>
       </div>
     </div>
   </section>

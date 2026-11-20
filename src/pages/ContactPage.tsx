@@ -14,7 +14,7 @@ interface ContactPageProps {
 const EMPTY_DRAFT: ContactDraft = { name: '', email: '', phone: '', subject: 'Renseignement', message: '' };
 
 const inputClass =
-  'w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition';
+  'w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-brand focus:border-transparent transition';
 
 const ContactPage: React.FC<ContactPageProps> = ({ onNavigate, onLoginClick }) => {
   const [draft, setDraft] = useState<ContactDraft>(EMPTY_DRAFT);
@@ -56,18 +56,18 @@ const ContactPage: React.FC<ContactPageProps> = ({ onNavigate, onLoginClick }) =
       <PageBanner
         eyebrow="Contact"
         title="Contactez-nous"
-        description={`Une question sur ${siteConfig.schoolName}, une inscription ou la scolarité de votre enfant ? Écrivez-nous, le secrétariat vous répondra rapidement.`}
+        description="Une question ? Le secrétariat vous répond rapidement."
       />
 
       <section className="container mx-auto px-4 lg:px-8 py-14">
         <div className="max-w-5xl mx-auto grid md:grid-cols-5 gap-10">
           <div className="space-y-6 md:col-span-2">
             <div className="flex items-start gap-4">
-              <div className="bg-blue-100 p-3 rounded-lg">
-                <MapPin className="w-5 h-5 text-blue-600" />
+              <div className="bg-brand-light p-3 rounded-sm">
+                <MapPin className="w-5 h-5 text-brand" />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900 mb-1">Adresse</h3>
+                <h3 className="font-semibold text-navy mb-1">Adresse</h3>
                 {siteConfig.contact.addressLines.map((line) => (
                   <p key={line} className="text-gray-600 text-sm">{line}</p>
                 ))}
@@ -75,12 +75,12 @@ const ContactPage: React.FC<ContactPageProps> = ({ onNavigate, onLoginClick }) =
             </div>
 
             <div className="flex items-start gap-4">
-              <div className="bg-blue-100 p-3 rounded-lg">
-                <Phone className="w-5 h-5 text-blue-600" />
+              <div className="bg-brand-light p-3 rounded-sm">
+                <Phone className="w-5 h-5 text-brand" />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900 mb-1">Téléphone</h3>
-                <a href={phoneHref(siteConfig.contact.phone)} className="text-gray-600 text-sm hover:text-blue-600">
+                <h3 className="font-semibold text-navy mb-1">Téléphone</h3>
+                <a href={phoneHref(siteConfig.contact.phone)} className="text-gray-600 text-sm hover:text-brand">
                   {siteConfig.contact.phone}
                 </a>
               </div>
@@ -88,12 +88,12 @@ const ContactPage: React.FC<ContactPageProps> = ({ onNavigate, onLoginClick }) =
 
             {hasPublicEmail() && (
               <div className="flex items-start gap-4">
-                <div className="bg-blue-100 p-3 rounded-lg">
-                  <Mail className="w-5 h-5 text-blue-600" />
+                <div className="bg-brand-light p-3 rounded-sm">
+                  <Mail className="w-5 h-5 text-brand" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-1">Email</h3>
-                  <a href={`mailto:${siteConfig.contact.email}`} className="text-gray-600 text-sm hover:text-blue-600">
+                  <h3 className="font-semibold text-navy mb-1">Email</h3>
+                  <a href={`mailto:${siteConfig.contact.email}`} className="text-gray-600 text-sm hover:text-brand">
                     {siteConfig.contact.email}
                   </a>
                 </div>
@@ -101,11 +101,11 @@ const ContactPage: React.FC<ContactPageProps> = ({ onNavigate, onLoginClick }) =
             )}
 
             <div className="flex items-start gap-4">
-              <div className="bg-blue-100 p-3 rounded-lg">
-                <Clock className="w-5 h-5 text-blue-600" />
+              <div className="bg-brand-light p-3 rounded-sm">
+                <Clock className="w-5 h-5 text-brand" />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900 mb-1">Secrétariat</h3>
+                <h3 className="font-semibold text-navy mb-1">Secrétariat</h3>
                 <p className="text-gray-600 text-sm">Accueil des familles pendant les jours de classe.</p>
               </div>
             </div>
@@ -113,9 +113,9 @@ const ContactPage: React.FC<ContactPageProps> = ({ onNavigate, onLoginClick }) =
 
           <div className="md:col-span-3">
             {status === 'sent' ? (
-              <div className="bg-white p-8 rounded-xl shadow-md text-center" role="status">
+              <div className="bg-white p-8 shadow-md border-t-4 border-brand text-center" role="status">
                 <CheckCircle2 className="w-14 h-14 text-green-600 mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-gray-900">Message envoyé</h3>
+                <h3 className="text-xl font-bold text-navy">Message envoyé</h3>
                 <p className="text-gray-600 mt-2">
                   Merci ! Votre message a bien été reçu par l'établissement. Nous vous répondrons par téléphone ou par
                   email dans les meilleurs délais.
@@ -123,13 +123,13 @@ const ContactPage: React.FC<ContactPageProps> = ({ onNavigate, onLoginClick }) =
                 <button
                   type="button"
                   onClick={() => setStatus('idle')}
-                  className="mt-6 text-blue-700 font-semibold hover:underline"
+                  className="mt-6 text-brand font-semibold hover:underline"
                 >
                   Envoyer un autre message
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="bg-white p-6 md:p-8 rounded-xl shadow-md space-y-4">
+              <form onSubmit={handleSubmit} className="bg-white p-6 md:p-8 shadow-md border-t-4 border-brand space-y-4">
                 <div>
                   <label htmlFor="contact-name" className="block text-sm font-medium text-gray-700 mb-2">
                     Nom et prénom <span className="text-red-600">*</span>
@@ -182,7 +182,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ onNavigate, onLoginClick }) =
                 <button
                   type="submit"
                   disabled={status === 'sending'}
-                  className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition shadow-md disabled:opacity-60 flex items-center justify-center gap-2"
+                  className="w-full bg-brand text-white py-3 rounded-sm font-display uppercase tracking-wider font-semibold hover:bg-brand-dark transition shadow-md disabled:opacity-60 flex items-center justify-center gap-2"
                 >
                   {status === 'sending' ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5" />}
                   {status === 'sending' ? 'Envoi en cours…' : 'Envoyer le message'}

@@ -12,6 +12,9 @@ export const siteConfig = {
   // Chemin absolu depuis public/ : sert aussi de favicon et d'image de partage.
   logoUrl: '/Images/logo-cs-emmanuel.png',
   logoFallbackInitials: 'CE',
+  // Photo de fond des bannières (ex. '/Images/ecole.jpg', déposée dans public/Images/).
+  // Laisser vide pour un fond bleu nuit uni.
+  heroImage: '',
   // Cycles proposés par l'établissement, du plus jeune au plus âgé.
   cycles: ['garderie', 'prescolaire', 'primaire', 'college', 'lycee'] as SchoolCycle[],
   hero: {
