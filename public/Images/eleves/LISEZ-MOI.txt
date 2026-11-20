@@ -1,0 +1,18 @@
+PHOTOS DES ÉLÈVES DE LA BANNIÈRE D'ACCUEIL
+==========================================
+
+Déposez ici une photo par cycle, avec exactement ces noms :
+
+  garderie.jpg
+  prescolaire.jpg
+  primaire.jpg
+  college.jpg
+  lycee.jpg
+
+Conseils :
+- Photo verticale (portrait), environ 600 x 1000 pixels, moins de 300 Ko.
+- Élèves en tenue scolaire officielle du cycle.
+- Obtenez l'accord des parents avant de publier la photo d'un enfant.
+
+Tant qu'une photo manque, le site affiche à sa place une illustration
+des tenues officielles. Aucune autre modification n'est nécessaire.

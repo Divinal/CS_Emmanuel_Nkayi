@@ -1,0 +1,409 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    color-scheme: dark;
+
+    --background: 222 47% 7%;
+    --foreground: 210 40% 96%;
+
+    --card: 221 39% 11%;
+    --card-foreground: 210 40% 96%;
+
+    --popover: 221 39% 11%;
+    --popover-foreground: 210 40% 96%;
+
+    /* Niveaux de surface utilisés par le plugin darkTheme (tailwind.config.js) */
+    --surface-sunken: 222 44% 9%;
+    --surface-raised: 219 34% 16%;
+    --surface-strong: 217 30% 21%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217 28% 22%;
+    --input: 222 44% 9%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@media screen {
+  /* :where() garde une faible spécificité : .bg-gray-100 sur un champ
+     désactivé doit rester prioritaire. */
+  .dark :where(input:not([type='checkbox'], [type='radio']), select, textarea) {
+    background-color: hsl(var(--input));
+    color: hsl(var(--foreground));
+  }
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #printable-area,
+  #printable-area * {
+    visibility: visible;
+    color: #111827 !important;
+    background: transparent !important;
+    border-color: #d1d5db !important;
+  }
+  #printable-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* ---------- Documents imprimables (liste de niveau, relevé de notes) ----------
+   Couleurs fixes : le document reste clair à l'écran comme sur papier, quel que
+   soit le thème de l'application. */
+.print-doc {
+  background: #fff;
+  color: #111827;
+  font-size: 13px;
+  line-height: 1.4;
+}
+.print-doc table {
+  width: 100%;
+  margin-top: 12px;
+  border-collapse: collapse;
+}
+.print-doc th,
+.print-doc td {
+  padding: 6px 8px;
+  border: 1px solid #cbd5e1;
+  text-align: start;
+  vertical-align: top;
+}
+.print-doc th {
+  background: #f1f5f9;
+  font-weight: 600;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.print-doc .print-doc-narrow {
+  width: 2.5rem;
+  text-align: center;
+}
+.print-doc .print-doc-signature {
+  width: 8rem;
+}
+.print-doc .print-doc-subtotal td {
+  background: #f8fafc;
+  font-weight: 600;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.print-doc-school {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #111827;
+  font-size: 12px;
+}
+.print-doc-school img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+.print-doc-school strong {
+  font-size: 15px;
+}
+.print-doc-header h1 {
+  margin-top: 14px;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+}
+.print-doc-subtitle {
+  font-size: 15px;
+  text-align: center;
+}
+.print-doc-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 20px;
+  margin-top: 10px;
+}
+.print-doc-meta div {
+  display: flex;
+  gap: 4px;
+}
+.print-doc-meta dt {
+  color: #4b5563;
+}
+.print-doc-meta dt::after {
+  content: ' :';
+}
+.print-doc-meta dd {
+  font-weight: 600;
+}
+.print-doc-empty {
+  padding: 24px 0;
+  text-align: center;
+}
+.print-doc-total {
+  margin-top: 12px;
+  font-size: 15px;
+  text-align: end;
+}
+.print-doc-sign {
+  margin-top: 40px;
+  text-align: end;
+}
+
+/* ---------- Bulletin de notes (modèle collège-lycée) : une page A4 par élève ---------- */
+.report-card {
+  font-size: 11.5px;
+  line-height: 1.3;
+}
+.report-card + .report-card {
+  break-before: page;
+  margin-top: 32px;
+}
+.rc-head {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 16px;
+  font-size: 10.5px;
+  text-align: center;
+}
+.rc-sep {
+  letter-spacing: 1px;
+}
+.rc-school {
+  margin-top: 2px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.rc-title {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 6px 20px;
+  border: 1px solid #111827;
+  border-radius: 9999px;
+  background: #d1d5db;
+  font-weight: 700;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.rc-motto {
+  margin-top: 4px;
+  font-weight: 700;
+}
+.rc-year {
+  margin-top: 6px;
+}
+.rc-logo {
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 6px auto 0;
+  object-fit: contain;
+}
+.rc-identity {
+  display: grid;
+  gap: 4px;
+  margin-top: 14px;
+}
+.rc-identity p:last-child {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 28px;
+}
+.print-doc .rc-table th,
+.print-doc .rc-table td {
+  padding: 4px 6px;
+  text-align: center;
+  vertical-align: middle;
+}
+.print-doc .rc-table th:first-child,
+.print-doc .rc-table td:first-child {
+  text-align: start;
+}
+.print-doc .rc-table .rc-teacher {
+  min-width: 7rem;
+}
+.print-doc .rc-total td {
+  font-weight: 700;
+}
+.rc-foot {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 16px;
+}
+.rc-foot p {
+  margin: 3px 0;
+}
+.rc-parent {
+  margin-top: 20px !important;
+  font-weight: 700;
+}
+.rc-head-sign {
+  text-align: center;
+}
+.rc-observation {
+  min-height: 32px;
+  font-style: italic;
+}
+.rc-head-title {
+  margin-top: 10px !important;
+}
+.rc-head-name {
+  margin-top: 36px !important;
+  font-weight: 700;
+}
+
+@media screen {
+  #print-root {
+    display: none;
+  }
+}
+
+@media print {
+  html,
+  html.dark {
+    background: #fff;
+    color-scheme: light;
+  }
+  @page {
+    size: A4;
+    margin: 14mm;
+  }
+  body:has(#print-root) {
+    background: #fff;
+  }
+  /* L'application disparaît de la mise en page : la liste peut couvrir plusieurs pages. */
+  body:has(#print-root) #root {
+    display: none;
+  }
+  #print-root,
+  #print-root * {
+    visibility: visible;
+  }
+  #print-root thead {
+    display: table-header-group;
+  }
+  #print-root tr {
+    break-inside: avoid;
+  }
+}
+
+@media print {
+  body {
+    background: #fff !important;
+  }
+  /* Reçus, bulletins et bons : ils s'affichent dans une fenêtre fixe, que le
+     navigateur répéterait sur chaque page. Tout le reste quitte la mise en page,
+     pour un seul exemplaire en haut de la feuille. */
+  body:has(#printable-area) #root *:not(:has(#printable-area)):not(#printable-area):not(#printable-area *) {
+    display: none !important;
+  }
+  #root *:has(#printable-area) {
+    display: block !important;
+    position: static !important;
+    width: auto !important;
+    min-height: 0 !important;
+    max-width: none !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    background: none !important;
+    transform: none !important;
+  }
+  #root #printable-area {
+    position: static;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+}
