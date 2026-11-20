@@ -11,7 +11,7 @@ interface PublicLayoutProps {
 
 const PublicLayout: React.FC<PublicLayoutProps> = ({ currentPage, onNavigate, onLoginClick, children }) => {
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-50 to-blue-50">
+    <div className="flex min-h-screen flex-col bg-gray-100">
       <PublicHeader currentPage={currentPage} onNavigate={onNavigate} onLoginClick={onLoginClick} />
       <main className="flex-1">{children}</main>
       <PublicFooter onNavigate={onNavigate} onLoginClick={onLoginClick} />

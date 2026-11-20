@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Megaphone } from 'lucide-react';
 import PublicLayout from '../components/PublicLayout';
 import { PublicPage } from '../components/PublicHeader';
-import { EventCard, PageBanner, PromoBanner, SectionTitle } from '../components/public/PublicBlocks';
+import { EventCard, PageBanner, SectionTitle } from '../components/public/PublicBlocks';
 import { CATEGORY_STYLES, EventCategory, pastEvents, upcomingEvents } from '../content/events';
 
 interface PageProps {
@@ -19,8 +18,8 @@ const NewsPage: React.FC<PageProps> = ({ onNavigate, onLoginClick }) => {
   const past = pastEvents().filter((event) => matches(event.category));
 
   const chipClass = (active: boolean) =>
-    `rounded-full px-4 py-1.5 text-sm font-medium transition ${
-      active ? 'bg-blue-600 text-white shadow' : 'bg-white text-gray-700 ring-1 ring-gray-200 hover:bg-gray-50'
+    `rounded-sm px-4 py-1.5 font-display text-sm uppercase tracking-wider transition ${
+      active ? 'bg-brand text-white shadow' : 'bg-white text-navy ring-1 ring-gray-200 hover:bg-gray-50'
     }`;
 
   return (
@@ -28,7 +27,7 @@ const NewsPage: React.FC<PageProps> = ({ onNavigate, onLoginClick }) => {
       <PageBanner
         eyebrow="Actualités"
         title="Agenda de l'année 2026-2027"
-        description="Fêtes, compositions, examens d'État, inscriptions et temps forts de la vie de l'établissement."
+        description="Fêtes, compositions et examens de l'année."
       />
 
       <section className="container mx-auto px-4 py-12 lg:px-8">
@@ -61,17 +60,6 @@ const NewsPage: React.FC<PageProps> = ({ onNavigate, onLoginClick }) => {
         )}
       </section>
 
-      <div className="container mx-auto px-4 lg:px-8">
-        <PromoBanner
-          tone="purple"
-          icon={Megaphone}
-          eyebrow="Annonces officielles"
-          title="Les annonces de l'école, directement sur votre téléphone"
-          text="Changements d'horaires, réunions de parents, dates de compositions : les annonces de la direction arrivent dans l'espace en ligne avec une notification."
-          cta={{ label: 'Se connecter', onClick: onLoginClick }}
-          onNavigate={onNavigate}
-        />
-      </div>
 
       {past.length > 0 && (
         <section className="container mx-auto px-4 py-12 lg:px-8">

@@ -1,8 +1,8 @@
 import React from 'react';
-import { ChevronDown, FileCheck2, Phone, Receipt, School } from 'lucide-react';
+import { ChevronDown, FileCheck2, Phone } from 'lucide-react';
 import PublicLayout from '../components/PublicLayout';
 import { PublicPage } from '../components/PublicHeader';
-import { PageBanner, PromoBanner, PublicLink, SectionTitle } from '../components/public/PublicBlocks';
+import { BTN_OUTLINE, BTN_RED, PageBanner, PublicLink, SectionTitle } from '../components/public/PublicBlocks';
 import { siteConfig, phoneHref } from '../config/site.config';
 
 interface PageProps {
@@ -11,53 +11,32 @@ interface PageProps {
 }
 
 const STEPS = [
-  { title: 'Prise de contact', text: 'Passez au secrétariat, appelez-nous ou envoyez un message depuis le site pour connaître les places disponibles.' },
-  { title: 'Dépôt du dossier', text: 'Remettez au secrétariat les pièces demandées pour le niveau souhaité.' },
-  { title: 'Étude du dossier', text: "La direction examine le dossier et peut proposer un entretien ou un test de niveau, notamment en cas de changement d'école." },
-  { title: 'Inscription définitive', text: "Après règlement des frais d'inscription, un reçu vous est remis et votre enfant est affecté dans sa classe." },
-  { title: 'Accès en ligne', text: "L'administration vous transmet les identifiants de l'espace élève pour suivre notes, bulletins et paiements." },
+  { title: 'Contact', text: 'Appelez ou passez au secrétariat.' },
+  { title: 'Dossier', text: 'Déposez les pièces demandées.' },
+  { title: 'Inscription', text: 'Réglez les frais, recevez votre reçu.' },
+  { title: 'Accès en ligne', text: 'Suivez notes et bulletins.' },
 ];
 
 const DOCUMENTS = [
-  { label: "Extrait d'acte de naissance", scope: 'Tous les cycles' },
-  { label: "Photos d'identité récentes", scope: 'Tous les cycles' },
-  { label: 'Carnet de vaccination à jour', scope: 'Garderie et préscolaire' },
-  { label: "Bulletins de l'année précédente", scope: 'À partir du CP2' },
-  { label: 'Certificat de scolarité ou exeat', scope: "En cas de changement d'école" },
-  { label: 'Attestation de réussite au CEPE', scope: 'Entrée en 6ème' },
-  { label: 'Attestation de réussite au BEPC', scope: 'Entrée en Seconde' },
+  { label: "Extrait d'acte de naissance", scope: 'Tous' },
+  { label: "Photos d'identité", scope: 'Tous' },
+  { label: 'Carnet de vaccination', scope: 'Garderie, préscolaire' },
+  { label: "Bulletins de l'année précédente", scope: 'Dès le CP2' },
+  { label: 'Exeat ou certificat de scolarité', scope: "Changement d'école" },
 ];
 
 const FAQ = [
   {
     question: "Peut-on inscrire un enfant en cours d'année ?",
-    answer:
-      "Oui, selon les places disponibles dans la classe demandée. Pour un élève venant d'un autre établissement, prévoyez son exeat ou un certificat de scolarité et ses derniers bulletins.",
+    answer: 'Oui, selon les places disponibles. Prévoyez son exeat et ses derniers bulletins.',
   },
   {
     question: 'Comment se paient les frais de scolarité ?',
-    answer:
-      "Les montants et les échéances sont communiqués par le secrétariat au moment de l'inscription. Chaque paiement donne lieu à un reçu, que vous retrouvez aussi dans l'espace en ligne de l'élève.",
-  },
-  {
-    question: 'Quelle tenue mon enfant doit-il porter ?',
-    answer:
-      "La tenue scolaire officielle du Congo, selon le cycle : tablier au préscolaire, chemise kaki et bas bleu foncé au primaire, kaki pour les garçons et bleu ciel / bleu pour les filles au collège et au lycée. Le détail est sur la page Vie scolaire.",
+    answer: "Les montants sont donnés par le secrétariat. Chaque paiement donne un reçu, visible aussi dans l'espace en ligne.",
   },
   {
     question: 'Comment suivre les notes de mon enfant ?',
-    answer:
-      "Avec les identifiants remis par l'administration, connectez-vous à l'espace en ligne : notes, bulletins, emploi du temps, absences et reçus de paiement y sont disponibles à tout moment.",
-  },
-  {
-    question: "J'ai oublié le mot de passe de l'espace élève. Que faire ?",
-    answer:
-      "Adressez-vous au secrétariat ou à la direction : un nouveau mot de passe temporaire vous sera remis, à changer à la première connexion.",
-  },
-  {
-    question: "Mon enfant est en classe d'examen. Comment s'inscrit-il au CEPE, au BEPC ou au BAC ?",
-    answer:
-      "L'établissement constitue les dossiers de candidature des élèves de CM2, de 3ème et de Terminale et informe les familles des pièces à fournir et des dates fixées par le ministère.",
+    answer: "Connectez-vous à l'espace en ligne avec les identifiants remis par l'administration.",
   },
 ];
 
@@ -66,114 +45,70 @@ const AdmissionsPage: React.FC<PageProps> = ({ onNavigate, onLoginClick }) => (
     <PageBanner
       eyebrow="Admissions"
       title="Inscrire votre enfant"
-      description="De la garderie à la Terminale, voici comment se déroule une inscription au Complexe Scolaire Évangélique de Nkayi, et les pièces à préparer."
+      description="Quatre étapes simples, de la garderie à la Terminale."
     />
 
-    <section className="container mx-auto px-4 py-14 lg:px-8">
-      <SectionTitle eyebrow="Démarche" title="Les étapes de l'inscription" />
-      <ol className="grid gap-5 md:grid-cols-5">
+    <section className="container mx-auto px-4 py-16 lg:px-8">
+      <ol className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {STEPS.map((step, index) => (
-          <li key={step.title} className="relative rounded-xl bg-white p-5 shadow-md ring-1 ring-gray-100">
-            <span className="mb-3 flex h-9 w-9 items-center justify-center rounded-full bg-blue-600 font-bold text-white">
-              {index + 1}
-            </span>
-            <h3 className="font-bold text-gray-900">{step.title}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-gray-600">{step.text}</p>
+          <li key={step.title} className="bg-white p-6 shadow-md">
+            <span className="font-display text-4xl font-semibold text-brand">0{index + 1}</span>
+            <h3 className="mt-2 font-display text-lg font-semibold uppercase text-navy">{step.title}</h3>
+            <p className="mt-1 text-sm text-gray-600">{step.text}</p>
           </li>
         ))}
       </ol>
     </section>
 
     <section className="bg-white">
-      <div className="container mx-auto grid gap-10 px-4 py-14 lg:grid-cols-2 lg:px-8">
+      <div className="container mx-auto grid gap-12 px-4 py-16 lg:grid-cols-2 lg:px-8">
         <div>
           <SectionTitle eyebrow="Dossier" title="Pièces à fournir" />
-          <ul className="divide-y rounded-xl ring-1 ring-gray-200">
+          <ul className="divide-y">
             {DOCUMENTS.map((doc) => (
-              <li key={doc.label} className="flex items-start gap-3 px-5 py-3.5">
-                <FileCheck2 className="mt-0.5 h-5 w-5 shrink-0 text-blue-600" />
-                <div className="flex flex-1 flex-col sm:flex-row sm:justify-between sm:gap-4">
-                  <span className="font-medium text-gray-900">{doc.label}</span>
-                  <span className="text-sm text-gray-500">{doc.scope}</span>
-                </div>
+              <li key={doc.label} className="flex items-center gap-3 py-3">
+                <FileCheck2 className="h-5 w-5 shrink-0 text-brand" />
+                <span className="flex-1 font-medium text-navy">{doc.label}</span>
+                <span className="text-end text-sm text-gray-500">{doc.scope}</span>
               </li>
             ))}
           </ul>
-          <p className="mt-3 text-sm text-gray-500">
-            Liste indicative : le secrétariat vous confirme les pièces exigées pour chaque niveau.
-          </p>
         </div>
 
-        <div className="space-y-6">
-          <div>
-            <SectionTitle eyebrow="Calendrier" title="Quand s'inscrire ?" />
-            <p className="leading-relaxed text-gray-700">
-              Pensez à inscrire votre enfant avant la rentrée d'octobre : les places sont limitées dans chaque classe.
-              Les périodes de pré-inscription pour l'année suivante sont annoncées dans l'agenda du site. Une
-              inscription en cours d'année reste possible selon les places disponibles.
-            </p>
-          </div>
-          <div className="rounded-xl bg-blue-50 p-6 ring-1 ring-blue-100">
-            <div className="flex items-start gap-3">
-              <Receipt className="h-6 w-6 shrink-0 text-blue-700" />
-              <div>
-                <h3 className="font-bold text-blue-900">Frais d'inscription et de scolarité</h3>
-                <p className="mt-1 text-sm leading-relaxed text-blue-900/80">
-                  Les montants varient selon le cycle et sont communiqués par le secrétariat. Chaque versement donne
-                  lieu à un reçu officiel, consultable dans l'espace en ligne de l'élève.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="rounded-xl bg-green-50 p-6 ring-1 ring-green-100">
-            <div className="flex items-start gap-3">
-              <Phone className="h-6 w-6 shrink-0 text-green-700" />
-              <div>
-                <h3 className="font-bold text-green-900">Secrétariat</h3>
-                <a href={phoneHref(siteConfig.contact.phone)} className="mt-1 block text-sm font-semibold text-green-800 hover:underline">
-                  {siteConfig.contact.phone}
-                </a>
-                <p className="text-sm text-green-900/80">{siteConfig.contact.addressLines.join(', ')}</p>
-              </div>
-            </div>
+        <div>
+          <SectionTitle eyebrow="FAQ" title="Questions fréquentes" />
+          <div className="space-y-3">
+            {FAQ.map((item) => (
+              <details key={item.question} className="group bg-gray-100">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-semibold text-navy">
+                  {item.question}
+                  <ChevronDown className="h-5 w-5 shrink-0 text-brand transition group-open:rotate-180" />
+                </summary>
+                <p className="px-5 pb-5 text-gray-600">{item.answer}</p>
+              </details>
+            ))}
           </div>
         </div>
       </div>
     </section>
 
-    <section id="faq" className="container mx-auto px-4 py-14 lg:px-8">
-      <SectionTitle eyebrow="FAQ" title="Questions fréquentes" />
-      <div className="max-w-4xl space-y-3">
-        {FAQ.map((item) => (
-          <details key={item.question} className="group rounded-xl bg-white shadow-sm ring-1 ring-gray-100 open:shadow-md">
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-semibold text-gray-900">
-              {item.question}
-              <ChevronDown className="h-5 w-5 shrink-0 text-gray-400 transition group-open:rotate-180" />
-            </summary>
-            <p className="px-5 pb-5 leading-relaxed text-gray-600">{item.answer}</p>
-          </details>
-        ))}
+    <section className="bg-navy text-white">
+      <div className="container mx-auto flex flex-col items-center gap-6 px-4 py-14 text-center lg:px-8">
+        <h2 className="font-display text-2xl font-semibold uppercase md:text-3xl">Réservez la place de votre enfant</h2>
+        <div className="flex w-full flex-col gap-4 sm:w-auto sm:flex-row">
+          <a
+            href={phoneHref(siteConfig.contact.phone)}
+            className={BTN_OUTLINE}
+          >
+            <Phone className="h-4 w-4" />
+            {siteConfig.contact.phone}
+          </a>
+          <PublicLink to="contact" onNavigate={onNavigate} className={BTN_RED}>
+            Faire une demande
+          </PublicLink>
+        </div>
       </div>
-      <p className="mt-6 text-gray-600">
-        Vous ne trouvez pas votre réponse ?{' '}
-        <PublicLink to="contact" onNavigate={onNavigate} className="font-semibold text-blue-700 hover:underline">
-          Écrivez-nous
-        </PublicLink>
-        .
-      </p>
     </section>
-
-    <div className="container mx-auto px-4 pb-16 lg:px-8">
-      <PromoBanner
-        tone="amber"
-        icon={School}
-        eyebrow="Inscriptions"
-        title="Réservez dès maintenant la place de votre enfant"
-        text="Envoyez votre demande depuis le site en choisissant l'objet « Inscription » : le secrétariat vous recontacte pour fixer un rendez-vous."
-        cta={{ label: 'Faire une demande', to: 'contact' }}
-        onNavigate={onNavigate}
-      />
-    </div>
   </PublicLayout>
 );
 

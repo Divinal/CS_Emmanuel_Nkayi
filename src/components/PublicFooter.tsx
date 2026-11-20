@@ -1,24 +1,18 @@
 import React from 'react';
+import { MapPin, Phone, Mail } from 'lucide-react';
 import { siteConfig, phoneHref, hasPublicEmail } from '../config/site.config';
 import { PublicPage } from './PublicHeader';
 import { PUBLIC_PATHS } from '../lib/publicRoutes';
 import { t } from '../i18n';
 
-const FOOTER_LINKS: Record<'main' | 'families', { id: PublicPage; label: string }[]> = {
-  main: [
-    { id: 'home', label: t("Accueil") },
-    { id: 'about', label: "L'établissement" },
-    { id: 'education', label: 'Enseignement' },
-    { id: 'news', label: 'Actualités et événements' },
-  ],
-  families: [
-    { id: 'admissions', label: 'Inscriptions et admissions' },
-    { id: 'admissions', label: 'Questions fréquentes' },
-    { id: 'school-life', label: 'Vie scolaire et tenue' },
-    { id: 'contact', label: 'Nous écrire' },
-    { id: 'privacy', label: t("Confidentialité") },
-  ],
-};
+const FOOTER_LINKS: { id: PublicPage; label: string }[] = [
+  { id: 'about', label: "L'établissement" },
+  { id: 'education', label: 'Enseignement' },
+  { id: 'admissions', label: 'Admissions' },
+  { id: 'school-life', label: 'Vie scolaire' },
+  { id: 'news', label: 'Actualités' },
+  { id: 'contact', label: t("Contact") },
+];
 
 interface PublicFooterProps {
   onNavigate: (page: PublicPage) => void;
@@ -32,71 +26,61 @@ const PublicFooter: React.FC<PublicFooterProps> = ({ onNavigate, onLoginClick })
   };
 
   return (
-    <footer className="bg-white border-t mt-auto">
-      <div className="container mx-auto px-4 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div>
-            <h3 className="font-bold text-gray-900 mb-4 text-lg">{t(siteConfig.about.title)}</h3>
-            <p className="text-gray-600 text-sm leading-relaxed">{t(siteConfig.about.description)}</p>
-          </div>
-
-          <div>
-            <h3 className="font-bold text-gray-900 mb-4 text-lg">{t("Liens rapides")}</h3>
-            <ul className="space-y-2 text-sm">
-              {FOOTER_LINKS.main.map((link) => (
-                <li key={link.id}>
-                  <a href={PUBLIC_PATHS[link.id]} onClick={navigate(link.id)} className="text-gray-600 hover:text-blue-600 transition">
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-              <li>
-                <button onClick={onLoginClick} className="text-gray-600 hover:text-blue-600 transition">
-                  {t("Connexion")}
-                </button>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-bold text-gray-900 mb-4 text-lg">Familles</h3>
-            <ul className="space-y-2 text-sm">
-              {FOOTER_LINKS.families.map((link) => (
-                <li key={link.label}>
-                  <a href={PUBLIC_PATHS[link.id]} onClick={navigate(link.id)} className="text-gray-600 hover:text-blue-600 transition">
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-bold text-gray-900 mb-4 text-lg">{t("Contact")}</h3>
-            <ul className="space-y-2 text-sm text-gray-600">
-              {siteConfig.contact.addressLines.map((line) => (
-                <li key={line}>{t(line)}</li>
-              ))}
-              {hasPublicEmail() && (
-                <li>
-                  <a href={`mailto:${siteConfig.contact.email}`} className="hover:text-blue-600 transition">
-                    {siteConfig.contact.email}
-                  </a>
-                </li>
-              )}
-              <li>
-                <a href={phoneHref(siteConfig.contact.phone)} className="hover:text-blue-600 transition">
-                  {siteConfig.contact.phone}
-                </a>
-              </li>
-            </ul>
-          </div>
+    <footer className="mt-auto bg-navy-950 text-gray-400">
+      <div className="container mx-auto grid gap-10 px-4 py-12 md:grid-cols-3 lg:px-8">
+        <div>
+          <h3 className="font-display text-lg font-semibold uppercase tracking-wider text-white">{t(siteConfig.schoolName)}</h3>
+          <span className="mt-3 block h-1 w-12 bg-brand" aria-hidden="true" />
+          <p className="mt-4 font-display text-sm uppercase tracking-widest text-gray-300">
+            {siteConfig.reportCard.schoolMotto}
+          </p>
         </div>
 
-        <div className="border-t mt-8 pt-8 text-center">
-          <p className="text-sm text-gray-500">
+        <ul className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
+          {FOOTER_LINKS.map((link) => (
+            <li key={link.id}>
+              <a href={PUBLIC_PATHS[link.id]} onClick={navigate(link.id)} className="transition hover:text-white">
+                {link.label}
+              </a>
+            </li>
+          ))}
+          <li>
+            <button onClick={onLoginClick} className="transition hover:text-white">
+              {t("Connexion")}
+            </button>
+          </li>
+        </ul>
+
+        <ul className="space-y-3 text-sm">
+          <li className="flex items-start gap-2">
+            <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
+            {siteConfig.contact.addressLines.map((line) => t(line)).join(', ')}
+          </li>
+          <li className="flex items-center gap-2">
+            <Phone className="h-4 w-4 shrink-0 text-brand" />
+            <a href={phoneHref(siteConfig.contact.phone)} className="transition hover:text-white">
+              {siteConfig.contact.phone}
+            </a>
+          </li>
+          {hasPublicEmail() && (
+            <li className="flex items-center gap-2">
+              <Mail className="h-4 w-4 shrink-0 text-brand" />
+              <a href={`mailto:${siteConfig.contact.email}`} className="transition hover:text-white">
+                {siteConfig.contact.email}
+              </a>
+            </li>
+          )}
+        </ul>
+      </div>
+
+      <div className="border-t border-white/10">
+        <div className="container mx-auto flex flex-col items-center justify-between gap-2 px-4 py-5 text-xs sm:flex-row lg:px-8">
+          <p>
             © {new Date().getFullYear()} {t(siteConfig.copyrightOwner)}{t(". Tous droits réservés.")}
           </p>
+          <a href={PUBLIC_PATHS.privacy} onClick={navigate('privacy')} className="transition hover:text-white">
+            {t("Confidentialité")}
+          </a>
         </div>
       </div>
     </footer>
